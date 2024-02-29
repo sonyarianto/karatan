@@ -15,6 +15,7 @@ fn router(
         (&hyper::Method::GET, "/") => Box::pin(hello(req)),
         (&hyper::Method::GET, "/about") => Box::pin(about(req)),
         (&hyper::Method::POST, "/upload") => Box::pin(upload(req)),
+        (&hyper::Method::GET, "/json") => Box::pin(json(req)),
         _ => Box::pin(not_found(req)),
     }
 }
