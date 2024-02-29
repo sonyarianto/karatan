@@ -14,6 +14,10 @@ async fn about(_: Request<Body>) -> Result<Response<Body>, Infallible> {
     Ok(Response::new(Body::from("This is about page")))
 }
 
+async fn upload(_: Request<Body>) -> Result<Response<Body>, Infallible> {
+    unimplemented!()
+}
+
 async fn not_found(_: Request<Body>) -> Result<Response<Body>, Infallible> {
     Ok(Response::builder()
         .status(StatusCode::NOT_FOUND)
@@ -27,6 +31,7 @@ fn router(
     match (req.method(), req.uri().path()) {
         (&hyper::Method::GET, "/") => Box::pin(hello(req)),
         (&hyper::Method::GET, "/about") => Box::pin(about(req)),
+        (&hyper::Method::POST, "/upload") => Box::pin(upload(req)),
         _ => Box::pin(not_found(req)),
     }
 }
