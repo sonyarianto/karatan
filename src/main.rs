@@ -1,29 +1,12 @@
 use hyper::service::{make_service_fn, service_fn};
-use hyper::StatusCode;
 use hyper::{Body, Request, Response, Server};
+use route_handlers::*;
 use std::convert::Infallible;
 use std::future::Future;
 use std::net::SocketAddr;
 use std::pin::Pin;
 
-async fn hello(_: Request<Body>) -> Result<Response<Body>, Infallible> {
-    Ok(Response::new(Body::from("Hello, World!")))
-}
-
-async fn about(_: Request<Body>) -> Result<Response<Body>, Infallible> {
-    Ok(Response::new(Body::from("This is about page")))
-}
-
-async fn upload(_: Request<Body>) -> Result<Response<Body>, Infallible> {
-    unimplemented!()
-}
-
-async fn not_found(_: Request<Body>) -> Result<Response<Body>, Infallible> {
-    Ok(Response::builder()
-        .status(StatusCode::NOT_FOUND)
-        .body(Body::empty())
-        .unwrap())
-}
+mod route_handlers;
 
 fn router(
     req: Request<Body>,
