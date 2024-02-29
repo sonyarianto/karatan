@@ -5,8 +5,9 @@ use std::convert::Infallible;
 use std::future::Future;
 use std::net::SocketAddr;
 use std::pin::Pin;
+use hyper_router::Route;
 
-pub async fn hello(_: Request<Body>) -> Result<Response<Body>, Infallible> {
+pub async fn index(_: Request<Body>) -> Result<Response<Body>, Infallible> {
     Ok(Response::new(Body::from("Hello, World!")))
 }
 
@@ -44,7 +45,7 @@ fn router(
     req: Request<Body>,
 ) -> Pin<Box<dyn Future<Output = Result<Response<Body>, Infallible>> + Send + 'static>> {
     match (req.method(), req.uri().path()) {
-        (&hyper::Method::GET, "/") => Box::pin(hello(req)),
+        (&hyper::Method::GET, "/") => Box::pin(index(req)),
         (&hyper::Method::GET, "/about") => Box::pin(about(req)),
         (&hyper::Method::POST, "/upload") => Box::pin(upload(req)),
         (&hyper::Method::GET, "/json") => Box::pin(json(req)),
