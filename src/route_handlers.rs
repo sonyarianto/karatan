@@ -1,6 +1,5 @@
 use hyper::{Body, Request, Response, StatusCode};
 use std::convert::Infallible;
-// use std::future::Future;
 
 pub async fn hello(_: Request<Body>) -> Result<Response<Body>, Infallible> {
     Ok(Response::new(Body::from("Hello, World!")))
