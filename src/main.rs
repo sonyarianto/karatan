@@ -2,7 +2,7 @@ use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
 #[get("/")]
 async fn index() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
+    HttpResponse::Ok().body("Hello, World!")
 }
 
 #[post("/echo")]
@@ -10,8 +10,13 @@ async fn echo(req_body: String) -> impl Responder {
     HttpResponse::Ok().body(req_body)
 }
 
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
+// Define not_found handler
+async fn not_found() -> impl Responder {
+    HttpResponse::NotFound().body("Page not found")
+}
+
+async fn about() -> impl Responder {
+    HttpResponse::Ok().body("This is about page")
 }
 
 async fn json() -> impl Responder {
@@ -36,9 +41,11 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(index)
             .service(echo)
-            .route("/hello", web::get().to(hello))
+            .route("/hello", web::get().to(about))
             .route("/json", web::get().to(json))
             .route("/{name}/age/{age}", web::get().to(dynamic_route))
+            // Handle 404 with custom handler
+            .default_service(web::route().to(not_found))
     })
     .bind(("127.0.0.1", 3021))?
     .run()
