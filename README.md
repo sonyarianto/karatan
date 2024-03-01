@@ -23,6 +23,10 @@ Karatan is a template/sample/skeleton/boilerplate web framework implemented in R
 - (GET) /external/api/1 => Return JSON data from external API (https://jsonplaceholder.typicode.com/todos)
 - (GET) /external/api/2 => Return JSON data from external hidden API with a bearer token
 
+## Learn the code
+
+- The entry point file is on `src/main.rs`, for now that's single file and all logic is all there, no include files for easy to learn.
+
 ## License
 
 MIT
