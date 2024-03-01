@@ -14,10 +14,13 @@ Karatan is a template/skeleton/boilerplate web framework implemented in Rust (Ac
 
 ## Available sample routes
 
-- (GET) / => Hello, World!
-- (GET) /about => This is about page
-- (POST) /upload => Imaginary path for POST end-point
-- (GET) /json => Return JSON data
+- (GET) / => Return string "Hello, World!"
+- (GET) /about => Return string "This is about page"
+- (POST) /upload => Imaginary path for POST end-point, still unimplemented
+- (GET) /json => Return JSON data from static string
+- (GET) /{name}/age/{age} => Return string with name and age from the URL
+- (GET) /external/api/1 => Return JSON data from external API (https://jsonplaceholder.typicode.com/todos)
+- (GET) /external/api/2 => Return JSON data from external hidden API with a bearer token
 
 ## License
 

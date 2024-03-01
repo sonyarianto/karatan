@@ -43,7 +43,30 @@ async fn connect_to_external_api() -> impl Responder {
         .await
         .unwrap();
 
-    HttpResponse::Ok().body(response)
+    HttpResponse::Ok()
+        .content_type("application/json")
+        .body(response)
+}
+
+async fn connect_to_external_api_2() -> impl Responder {
+    // Make a request to an external API with Bearer token
+    let client = reqwest::Client::new();
+    let response = client
+        .get("https://api.w0rld2day.com/api/news?countryCode=ID")
+        .header(
+            reqwest::header::AUTHORIZATION,
+            format!("Basic {}", "dXNlcjE6YW53cHFtbHM3MDgqJg=="),
+        )
+        .send()
+        .await
+        .unwrap()
+        .text()
+        .await
+        .unwrap();
+
+    HttpResponse::Ok()
+        .content_type("application/json")
+        .body(response)
 }
 
 #[actix_web::main]
@@ -55,7 +78,8 @@ async fn main() -> std::io::Result<()> {
             .route("/hello", web::get().to(about))
             .route("/json", web::get().to(json))
             .route("/{name}/age/{age}", web::get().to(dynamic_route))
-            .route("/api/proxy", web::get().to(connect_to_external_api))
+            .route("/external/api/1", web::get().to(connect_to_external_api))
+            .route("/external/api/2", web::get().to(connect_to_external_api_2))
             // Handle 404 with custom handler
             .default_service(web::route().to(not_found))
     })
