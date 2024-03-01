@@ -1,6 +1,6 @@
 # Karatan
 
-Karatan is a template/skeleton/boilerplate web framework implemented in Rust. Initially to makes my life easy. It contains simple sample to start your own backend system. Is it performant? I am not sure since I am still learning Rust as well.
+Karatan is a template/skeleton/boilerplate web framework implemented in Rust (Actix Web). Initially to makes my life easy. It contains simple sample to start your own backend system. Is it performant? I am not sure since I am still learning Rust as well.
 
 ## Requirements
 
