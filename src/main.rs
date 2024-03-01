@@ -83,7 +83,7 @@ async fn main() -> std::io::Result<()> {
             // Handle 404 with custom handler
             .default_service(web::route().to(not_found))
     })
-    .bind(("127.0.0.1", 3021))?
+    .bind(("127.0.0.1", 8000))?
     .run()
     .await
 }
