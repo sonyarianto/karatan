@@ -38,7 +38,6 @@ async fn main() -> std::io::Result<()> {
             .service(echo)
             .route("/hello", web::get().to(hello))
             .route("/json", web::get().to(json))
-            // Add dynamic route
             .route("/{name}/age/{age}", web::get().to(dynamic_route))
     })
     .bind(("127.0.0.1", 3021))?
