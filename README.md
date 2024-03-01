@@ -11,6 +11,7 @@ Karatan is a template/sample/skeleton/boilerplate web framework implemented in R
 - Clone the repo and go to the project directory.
 - Type `cargo build` and then `cargo run` to run the program.
 - It  will run the web server on port `8000`, try at http://localhost:8000.
+- Then you can try several available sample routes below while reading the source code.
 
 ## Available sample routes
 
