@@ -35,6 +35,17 @@ async fn dynamic_route(info: web::Path<(String, u32)>) -> impl Responder {
     HttpResponse::Ok().body(format!("Hello {}! You are {} years old.", info.0, info.1))
 }
 
+async fn connect_to_external_api() -> impl Responder {
+    let response = reqwest::get("https://jsonplaceholder.typicode.com/todos")
+        .await
+        .unwrap()
+        .text()
+        .await
+        .unwrap();
+
+    HttpResponse::Ok().body(response)
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
@@ -44,6 +55,7 @@ async fn main() -> std::io::Result<()> {
             .route("/hello", web::get().to(about))
             .route("/json", web::get().to(json))
             .route("/{name}/age/{age}", web::get().to(dynamic_route))
+            .route("/api/proxy", web::get().to(connect_to_external_api))
             // Handle 404 with custom handler
             .default_service(web::route().to(not_found))
     })
