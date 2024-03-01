@@ -26,6 +26,10 @@ async fn json() -> impl Responder {
         .body(data.to_string())
 }
 
+async fn dynamic_route(info: web::Path<(String, u32)>) -> impl Responder {
+    HttpResponse::Ok().body(format!("Hello {}! You are {} years old.", info.0, info.1))
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
@@ -34,6 +38,8 @@ async fn main() -> std::io::Result<()> {
             .service(echo)
             .route("/hello", web::get().to(hello))
             .route("/json", web::get().to(json))
+            // Add dynamic route
+            .route("/{name}/age/{age}", web::get().to(dynamic_route))
     })
     .bind(("127.0.0.1", 3021))?
     .run()
